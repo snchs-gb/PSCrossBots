@@ -7,10 +7,12 @@ typedef struct elemento{
     struct elemento *proximo;
 } Elemento;
 
+//criação da estrutura pilha
 typedef struct pilha{
     Elemento *topo;
 } Pilha;
 
+//função ´para inicializar pilha
 Pilha *comecaPilha(){
     Pilha *p;
     p = (Pilha*)malloc(sizeof(Pilha));
@@ -18,6 +20,7 @@ Pilha *comecaPilha(){
     return p;
 }
 
+//função para colocar dado na pilha
 void colocaDado(char caracter, Pilha *p) {
 
     Elemento *novo = (Elemento*)malloc(sizeof(Elemento));
@@ -30,7 +33,7 @@ void colocaDado(char caracter, Pilha *p) {
 
     
 }
-
+//função para retirar dado da pilha
 int retiraDado(Pilha *p) {
     
     if(p->topo != NULL){
@@ -55,7 +58,7 @@ int main(void){
     char **matriz;
 
     scanf("%i", &n);
-
+    //declaração da matriz para ter n(definido pelo usuário) linhas
     matriz = (char**) malloc(n * sizeof (char*));
     
     for (int i = 0; i <n; ++i){
@@ -63,23 +66,23 @@ int main(void){
     }
 
 
-    for (i=0; i<n;i++){
+    for (i=0; i<n;i++){     //vai repetir esse laço n vezes 
         setbuf(stdin, NULL);
-        fgets(matriz[i], 1000, stdin);
+        fgets(matriz[i], 1000, stdin); //lê uma linha da matriz
         for (j=0;j<1000;j++){
 
-            if(matriz[i][j]=='<'){
+            if(matriz[i][j]=='<'){ //se um elemento da linha for '<' coloca ele numa pilha
 
                 colocaDado(matriz[i][j], p);
             }
-            else if(p->topo!=NULL && matriz[i][j]=='>'){
-
+            else if(p->topo!=NULL && matriz[i][j]=='>'){ //se a pilha já tiver um '<' e outro elemento for '>'
+                                                        //tira esse '<' da pilha e conta 1 diamante
                 retiraDado(p);
                 diamante++;
             }
         }
-        printf("%i\n", diamante);
-        diamante = 0;
+        printf("%i\n", diamante);               //após ler toda a linha mostra a quantidade de diamantes
+        diamante = 0;                           //zera diamante para contar da próxima linha 
     }
 
     return 0;
