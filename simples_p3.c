@@ -81,7 +81,6 @@ int encontra_primo(Pilha *p1){ //função recebe uma pilha
         else{ //senão só retira o dado da p1
             retiraDado(p1);
         }
-        i=2;
         contador=0;
     }
 
